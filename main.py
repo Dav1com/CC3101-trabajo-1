@@ -17,19 +17,51 @@ def generar3CNF(n, k):
 def comprimirVariables(formula):
     compresion = {}
     k = 0
+    numVars = 0
     for i in formula:
-        for j in formula:
+        for j in i:
             if not (abs(j) in compresion):
                 compresion[abs(j)] = k
                 k += 1
-    return compresion
+            numVars = max(numVars, abs(j))
+    return compresion, numVars
+
+def genValuacion(compresion, numVars, evaluacion):
+    arr = [None] * numVars
+    for i in range(numVars):
+        if i+1 in compresion:
+            arr[i] = not not((evaluacion >> compresion[i+1]) & 1)
+        else:
+            arr[i] = False
+    return arr
 
 def comprobarSatisfacible(formula):
-    
+    compresion, numVars = comprimirVariables(formula)
+    for evaluacion in range(2**(len(compresion) + 1)):
+        resultado = True
+        for clausura in formula:
+            resultadoClausura = False
+            for literal in clausura:
+                if literal > 0:
+                    evalLiteral = (evaluacion >> compresion[literal]) & 1
+                    resultadoClausura = resultadoClausura or evalLiteral
+            resultado = resultado and resultadoClausura
+        if resultado:
+            return True, genValuacion(compresion, numVars, evaluacion)
+    return False, None
+
+def parte3():
+    x = 0
+    n_max = 
+    rep = 0
+    for k in range(3, x+1):
+        for n in range(1, n_max): # O(x^2)
+            for i in range(rep):  # O(rep * x^2)
+                formula = generar3CNF(k, n)
+                satisfacible, evalu = comprobarSatisfacible(formula) #
 
 def main():
-    for i in range(10):
-        print(generar3CNF(3, 5))
+    print(comprobarSatisfacible([[1,1,-2], [-2,-2,-2], [2,2,2]]))
     return 0
 
 if __name__ == "__main__":
