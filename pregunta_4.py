@@ -17,7 +17,7 @@ def comprobar_satisfacible_minisat(formula : list) -> Tuple[bool, list]:
     return es_satisfacible, valuacion_testigo
 
 
-def prueba_tiempo(casos: int, n: int, k: int, generador: Callable, comprobador: Callable) -> str:
+def prueba_tiempo(casos: int, n: int, k: int, generador: Callable, comprobador: Callable) -> float:
     """
     Testea la cantidad de tiempo que se demora un generador de CNFs en ser comprobadas como verificables.
     :param casos: Numero de casos por probar.
@@ -25,7 +25,7 @@ def prueba_tiempo(casos: int, n: int, k: int, generador: Callable, comprobador: 
     :param k: Cantidad de variables proporcionales. (k >= 3)
     :param generador: Funcion generadora de CNFs.
     :param comprobador: Funcion comprobadora de la satisfaciblidad de CNFs.
-    :return: String correspondiendo al tiempo transcurrido en segundos
+    :return: Float correspondiendo al tiempo transcurrido en segundos
     Ejemplo: prueba_tiempo(10000, 4, 5, generar3CNF, comprobar_satisfacible_minisat)
     """
 
