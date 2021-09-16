@@ -59,6 +59,7 @@ def parte3(x, n_max, rep):
                 satisfacible, evalu = comprobarSatisfacible(formula) # O(2^x)
                 satisfactibles += satisfacible
             print(", ".join([str(k), str(n), str(satisfactibles), str(rep - satisfactibles)]), file=f)
+    close(f)
 
 def main():
     parte3(12, 60, 1000)
