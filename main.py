@@ -50,18 +50,18 @@ def comprobarSatisfacible(formula):
             return True, genValuacion(compresion, numVars, evaluacion)
     return False, None
 
-def parte3():
-    x = 0
-    n_max = 
-    rep = 0
+def parte3(x, n_max, rep):
     for k in range(3, x+1):
-        for n in range(1, n_max): # O(x^2)
-            for i in range(rep):  # O(rep * x^2)
+        for n in range(1, n_max): # O(x*n)
+            satisfactibles = 0
+            for i in range(rep):  # O(rep*x*n*2^x)
                 formula = generar3CNF(k, n)
-                satisfacible, evalu = comprobarSatisfacible(formula) #
+                satisfacible, evalu = comprobarSatisfacible(formula) # O(2^x)
+                satisfactibles += satisfacible
+            print(", ".join([str(k), str(n), str(satisfactibles), str(rep-satisfactibles)]))
 
 def main():
-    print(comprobarSatisfacible([[1,1,-2], [-2,-2,-2], [2,2,2]]))
+    parte3(15, 100, 1000)
     return 0
 
 if __name__ == "__main__":
