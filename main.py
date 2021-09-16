@@ -2,6 +2,9 @@ from random import randint
 from random import sample
 from math import floor
 
+from pregunta_4 import comparar_comprobadores, comprobar_satisfacible_minisat
+
+
 def generar3CNF(n, k):
     '''
     n es la cantidad de clausulas
@@ -63,6 +66,7 @@ def parte3(x, n_max, rep):
 
 def main():
     parte3(12, 60, 1000)
+    comparar_comprobadores(1000, "out-parte-3.txt", generar3CNF, comprobarSatisfacible, comprobar_satisfacible_minisat)
     return 0
 
 if __name__ == "__main__":
