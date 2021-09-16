@@ -54,13 +54,13 @@ def parte3(x, n_max, rep):
         for n in range(1, n_max+1): # O(x*n)
             satisfactibles = 0
             for i in range(rep):  # O(rep*x*n*2^x)
-                formula = generar3CNF(k, n)
+                formula = generar3CNF(n, k)
                 satisfacible, evalu = comprobarSatisfacible(formula) # O(2^x)
                 satisfactibles += satisfacible
-            print(", ".join([str(k), str(n), str(float(rep-satisfactibles)/float(satisfactibles))]))
+            print(", ".join([str(k), str(n), str(satisfactibles), str(rep - satisfactibles)]))
 
 def main():
-    parte3(15, 10, 5000)
+    parte3(8, 45, 5000)
     return 0
 
 if __name__ == "__main__":
