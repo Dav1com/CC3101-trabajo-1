@@ -42,7 +42,7 @@ def comprobarSatisfacible(formula):
         for clausura in formula:
             resultadoClausura = False
             for literal in clausura:
-                evalLiteral = (evaluacion >> compresion[literal]) & 1
+                evalLiteral = (evaluacion >> compresion[abs(literal)]) & 1
                 resultadoClausura = resultadoClausura or (evalLiteral if literal > 0 else not evalLiteral)
             resultado = resultado and resultadoClausura
         if resultado:
@@ -51,16 +51,16 @@ def comprobarSatisfacible(formula):
 
 def parte3(x, n_max, rep):
     for k in range(3, x+1):
-        for n in range(1, n_max): # O(x*n)
+        for n in range(1, n_max+1): # O(x*n)
             satisfactibles = 0
             for i in range(rep):  # O(rep*x*n*2^x)
                 formula = generar3CNF(k, n)
                 satisfacible, evalu = comprobarSatisfacible(formula) # O(2^x)
                 satisfactibles += satisfacible
-            print(", ".join([str(k), str(n), str(satisfactibles), str(rep-satisfactibles)]))
+            print(", ".join([str(k), str(n), str(float(rep-satisfactibles)/float(satisfactibles))]))
 
 def main():
-    parte3(10, 100, 100)
+    parte3(15, 10, 5000)
     return 0
 
 if __name__ == "__main__":
