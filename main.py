@@ -42,9 +42,8 @@ def comprobarSatisfacible(formula):
         for clausura in formula:
             resultadoClausura = False
             for literal in clausura:
-                if literal > 0:
-                    evalLiteral = (evaluacion >> compresion[literal]) & 1
-                    resultadoClausura = resultadoClausura or evalLiteral
+                evalLiteral = (evaluacion >> compresion[literal]) & 1
+                resultadoClausura = resultadoClausura or (evalLiteral if literal > 0 else not evalLiteral)
             resultado = resultado and resultadoClausura
         if resultado:
             return True, genValuacion(compresion, numVars, evaluacion)
@@ -61,7 +60,7 @@ def parte3(x, n_max, rep):
             print(", ".join([str(k), str(n), str(satisfactibles), str(rep-satisfactibles)]))
 
 def main():
-    parte3(15, 100, 1000)
+    parte3(10, 100, 100)
     return 0
 
 if __name__ == "__main__":
