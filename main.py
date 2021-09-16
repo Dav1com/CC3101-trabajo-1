@@ -6,16 +6,17 @@ from pregunta_4 import comparar_comprobadores, comprobar_satisfacible_minisat
 
 
 def generar3CNF(n, k):
-    '''
+    """
     n es la cantidad de clausulas
     k es la cantidad de variables propocicionales (k >= 3)
-    '''
+    """
     arr = []
     variables = range(1, k+1)
     for i in range(n):
         arr2 = [ (randint(0,1)*2 - 1) * i for i in sample(variables, 3) ]
         arr.append(arr2)
     return arr
+
 
 def comprimirVariables(formula):
     compresion = {}
@@ -29,6 +30,7 @@ def comprimirVariables(formula):
             numVars = max(numVars, abs(j))
     return compresion, numVars
 
+
 def genValuacion(compresion, numVars, evaluacion):
     arr = [None] * numVars
     for i in range(numVars):
@@ -37,6 +39,7 @@ def genValuacion(compresion, numVars, evaluacion):
         else:
             arr[i] = False
     return arr
+
 
 def comprobarSatisfacible(formula):
     compresion, numVars = comprimirVariables(formula)
@@ -52,22 +55,25 @@ def comprobarSatisfacible(formula):
             return True, genValuacion(compresion, numVars, evaluacion)
     return False, None
 
+
 def parte3(x, n_max, rep):
     f = open('out-parte-3.txt', 'w')
     for k in range(3, x+1):
-        for n in range(1, n_max+1): # O(x*n)
+        for n in range(1, n_max+1):  # O(x*n)
             satisfactibles = 0
             for i in range(rep):  # O(rep*x*n*2^x)
                 formula = generar3CNF(n, k)
-                satisfacible, evalu = comprobarSatisfacible(formula) # O(2^x)
+                satisfacible, evalu = comprobarSatisfacible(formula)  # O(2^x)
                 satisfactibles += satisfacible
             print(", ".join([str(k), str(n), str(satisfactibles), str(rep - satisfactibles)]), file=f)
     f.close()
+
 
 def main():
     parte3(12, 60, 1000)
     comparar_comprobadores(1000, "out-parte-3.txt", generar3CNF, comprobarSatisfacible, comprobar_satisfacible_minisat)
     return 0
+
 
 if __name__ == "__main__":
     main()

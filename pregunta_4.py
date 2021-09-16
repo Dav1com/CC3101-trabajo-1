@@ -4,7 +4,7 @@ from stopwatch import StopWatch
 from typing import Tuple, Callable, List
 
 
-def comprobar_satisfacible_minisat(formula : list) -> Tuple[bool, list]:
+def comprobar_satisfacible_minisat(formula: list) -> Tuple[bool, list]:
     """
     Comprueba si un arreglo en forma CNF es satisfacible
     Retorna una tupla de si es satisfacible (bool) y la valuacion testigo si es que existe.
@@ -54,9 +54,9 @@ def encontrar_tuplas_optimas(archivo: str) -> List[Tuple[int, int]]:
         for line in file:
             variables, clausulas, satisfacibles, insatisfacibles = [int(x) for x in line.split(', ')]
 
-            if variables != n_previo: # Nuevo run de numeros de varaible
+            if variables != n_previo:  # Nuevo run de numeros de varaible
                 if len(temp_lista) > 0:
-                    optimas.append( min(temp_lista, key=lambda p: p[2])[:2])
+                    optimas.append(min(temp_lista, key=lambda p: p[2])[:2])
                 temp_lista = []
                 n_previo = variables
 
@@ -65,7 +65,7 @@ def encontrar_tuplas_optimas(archivo: str) -> List[Tuple[int, int]]:
         else:
             optimas.append(min(temp_lista, key=lambda p: p[2])[:2])
 
-    return optimas # Variable, Clausula
+    return optimas  # Variable, Clausula
 
 
 def comparar_comprobadores(casos: int, archivo: str, generador: Callable, comprobador1: Callable, comprobador2: Callable) -> None:
@@ -78,8 +78,6 @@ def comparar_comprobadores(casos: int, archivo: str, generador: Callable, compro
     @param comprobador2: Funcion comprobadora 2
     @return: None, pero crea un archivo 'out-parte-4.txt' con space separated values.
     """
-    # Ejemplo: comparar_comprobadores(1000, "out-parte-3.txt", generar3CNF, comprobarSatisfacible, comprobar_satisfacible_minisat)
-
     f = open('out-parte-4.txt', 'w')
 
     datos = encontrar_tuplas_optimas(archivo)

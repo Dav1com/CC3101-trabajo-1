@@ -1,6 +1,4 @@
 import matplotlib.pyplot as plt
-from matplotlib.colors import BoundaryNorm
-from matplotlib.ticker import MaxNLocator
 import numpy as np
 
 f = open('out.txt', 'r')
@@ -29,4 +27,6 @@ plt.xlabel("Cantidad de Variables")
 plt.ylabel("Cantidad de Clausulas")
 plt.colorbar(shrink = 0.85)
 plt.show()
+
+f.close()
 
