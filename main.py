@@ -50,6 +50,7 @@ def comprobarSatisfacible(formula):
     return False, None
 
 def parte3(x, n_max, rep):
+    f = open('out-parte-3.txt', 'w')
     for k in range(3, x+1):
         for n in range(1, n_max+1): # O(x*n)
             satisfactibles = 0
@@ -57,7 +58,7 @@ def parte3(x, n_max, rep):
                 formula = generar3CNF(n, k)
                 satisfacible, evalu = comprobarSatisfacible(formula) # O(2^x)
                 satisfactibles += satisfacible
-            print(", ".join([str(k), str(n), str(satisfactibles), str(rep - satisfactibles)]))
+            print(", ".join([str(k), str(n), str(satisfactibles), str(rep - satisfactibles)]), file=f)
 
 def main():
     parte3(12, 60, 1000)
