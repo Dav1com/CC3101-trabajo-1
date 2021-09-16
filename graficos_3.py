@@ -24,5 +24,9 @@ y = np.arange(minY - 0.5, maxY + 1, 1)
 Z = np.array(Z).reshape(maxX-minX+1, maxY-minY+1).transpose()
 
 plt.pcolormesh(x, y, Z)
+plt.title("Diferencia absoluta entre formulas satisfacibles e insatisfacibles")
+plt.xlabel("Cantidad de Variables")
+plt.ylabel("Cantidad de Clausulas")
+plt.colorbar(shrink = 0.85)
 plt.show()
 
