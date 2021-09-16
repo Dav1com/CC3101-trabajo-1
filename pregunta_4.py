@@ -1,7 +1,7 @@
 from pysat.formula import CNF
 from pysat.solvers import Minisat22
 from stopwatch import StopWatch
-from typing import Tuple, Callable
+from typing import Tuple, Callable, List
 
 
 def comprobar_satisfacible_minisat(formula : list) -> Tuple[bool, list]:
@@ -37,4 +37,59 @@ def prueba_tiempo(casos: int, n: int, k: int, generador: Callable, comprobador: 
     return stopwatch.stop()
 
 
-#assert comprobar_satisfacible_minisat([[1, -3, 5], [-2, 5, -4], [3, -1, 2], [-5, -3, 2]]) == (True, [-1, -2, -3, -4, -5])
+def encontrar_tuplas_optimas(archivo: str) -> List[Tuple[int, int]]:
+    """
+    Funcion auxiliar para tomar un output del paso 3, y convertirlo en una lista de tuplas de
+    numeros de clausulas y variables de razón optima.
+    @param archivo: Path de un archivo de output
+    @return: Lista de tuplas de la forma (Variables, Clausulas)
+    """
+    optimas = []
+
+    # variable clausula satisfacible insatisfacible
+    n_previo = -1
+    temp_lista = []
+
+    with open(archivo, "r") as file:
+        for line in file:
+            variables, clausulas, satisfacibles, insatisfacibles = [int(x) for x in line.split(', ')]
+
+            if variables != n_previo: # Nuevo run de numeros de varaible
+                if len(temp_lista) > 0:
+                    optimas.append( min(temp_lista, key=lambda p: p[2])[:2])
+                temp_lista = []
+                n_previo = variables
+
+            diferencia = abs(insatisfacibles - satisfacibles)
+            temp_lista.append((variables, clausulas, diferencia))
+        else:
+            optimas.append(min(temp_lista, key=lambda p: p[2])[:2])
+
+    return optimas # Variable, Clausula
+
+
+def comparar_comprobadores(casos: int, archivo: str, generador: Callable, comprobador1: Callable, comprobador2: Callable) -> None:
+    """
+    Genera un archivo con los resultados de los testeos de tiepmo de dos distintos comprobadores.
+    @param casos: Numero de veces para probar cada combinación de variables y clausulas.
+    @param archivo: Archivo que contenga los pares de variables-clausulas
+    @param generador: Generador de CNFs
+    @param comprobador1: Funcion comprobadora 1
+    @param comprobador2: Funcion comprobadora 2
+    @return: None, pero crea un archivo 'out-parte-4.txt' con space separated values.
+    """
+    # Ejemplo: comparar_comprobadores(1000, "out-parte-3.txt", generar3CNF, comprobarSatisfacible, comprobar_satisfacible_minisat)
+
+    f = open('out-parte-4.txt', 'w')
+
+    datos = encontrar_tuplas_optimas(archivo)
+
+    for tupla in datos:
+        k, n = tupla
+
+        c1 = prueba_tiempo(casos, n, k, generador, comprobador1)
+        c2 = prueba_tiempo(casos, n, k, generador, comprobador2)
+
+        f.write(str(c1) + " " + str(c2) + "\n")
+
+    f.close()
