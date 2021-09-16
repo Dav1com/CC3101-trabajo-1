@@ -1,4 +1,5 @@
 from random import randint
+from random import sample
 from math import floor
 
 def generar3CNF(n, k):
@@ -7,10 +8,9 @@ def generar3CNF(n, k):
     k es la cantidad de variables propocicionales (k >= 3)
     '''
     arr = []
+    variables = range(1, k+1)
     for i in range(n):
-        arr2 = []
-        for j in range(3): # [0, 3[
-            arr2.append(randint(1, k) * (randint(0,1)*2 - 1))
+        arr2 = [ (randint(0,1)*2 - 1) * i for i in sample(variables, 3) ]
         arr.append(arr2)
     return arr
 
@@ -60,7 +60,7 @@ def parte3(x, n_max, rep):
             print(", ".join([str(k), str(n), str(satisfactibles), str(rep - satisfactibles)]))
 
 def main():
-    parte3(8, 45, 5000)
+    parte3(12, 60, 1000)
     return 0
 
 if __name__ == "__main__":
