@@ -70,7 +70,7 @@ def parte3(x, n_max, rep):
 
 
 def main():
-    parte3(12, 60, 1000)
+    #parte3(12, 60, 1000)
     comparar_comprobadores(1000, "out-parte-3.txt", generar3CNF, comprobarSatisfacible, comprobar_satisfacible_minisat)
     return 0
 

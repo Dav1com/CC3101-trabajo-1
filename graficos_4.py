@@ -27,7 +27,7 @@ plt.title("Tiempo de ejecución vs número de \n variables para distintos algori
 plt.ylabel("Tiempo de ejecución. (segundos)")
 plt.xlabel("Número de variables.")
 
-plt.yscale("log")
+#plt.yscale("log")
 plt.show()
 
 
