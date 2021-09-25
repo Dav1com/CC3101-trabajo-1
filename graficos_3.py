@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-f = open('out.txt', 'r')
+f = open('out-parte-3.txt', 'r')
 
 Z = []
 
@@ -22,7 +22,7 @@ y = np.arange(minY - 0.5, maxY + 1, 1)
 Z = np.array(Z).reshape(maxX-minX+1, maxY-minY+1).transpose()
 
 plt.pcolormesh(x, y, Z)
-plt.title("Diferencia absoluta entre formulas satisfacibles e insatisfacibles")
+plt.title("Diferencia absoluta entre fórmulas satisfacibles e insatisfacibles")
 plt.xlabel("Cantidad de Variables")
 plt.ylabel("Cantidad de Clausulas")
 plt.colorbar(shrink = 0.85)
