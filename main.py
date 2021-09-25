@@ -43,7 +43,7 @@ def genValuacion(compresion, numVars, evaluacion):
 
 def comprobarSatisfacible(formula):
     compresion, numVars = comprimirVariables(formula)
-    for evaluacion in range(2**(len(compresion) + 1)):
+    for evaluacion in range(2**(len(compresion))):
         resultado = True
         for clausura in formula:
             resultadoClausura = False
